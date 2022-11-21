@@ -35,8 +35,7 @@ int main()
         printf("guess: ");
         scanf("%c", &guess);
 
-        while ((getchar()) != '\n')
-            ; // clear \n from input buffer
+        while ((getchar()) != '\n'); // clear \n from input buffer
 
         guess = toupper(guess);
 
