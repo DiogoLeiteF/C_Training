@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 // #include <conio.h>
 
 int checkForWin(char board[]);
-void drawboard(char board[]);
+void drawboard(char board[], int comp);
 void markBoard(int move, int player, char board[]);
-int playerMove(char board[], int player);
+int playerMove(char board[], int player, int comp);
 
 int main()
 {
@@ -15,15 +16,21 @@ int main()
     int game = 1;
     int move;
     int gameCount = 1;
+    int comp = 0;
+
+    srand(time(NULL));
+
+    printf("One or Two players? enter (1) or (2): ");
+    scanf("%d", &comp);
 
     while (game == 1)
     {
         (player == 1) ? (player = 2) : (player = 1);
 
-        drawboard(board);
-        move = playerMove(board, player);
+        drawboard(board, comp);
+        move = playerMove(board, player, comp);
         markBoard(move, player, board);
-        drawboard(board);
+        drawboard(board, comp);
         game = checkForWin(board);
         gameCount++;
 
@@ -34,13 +41,20 @@ int main()
 
         // printf("%d", game);
     }
-    if (gameCount > 9)
+    if (gameCount > 9 && game == 1)
     {
         printf("\nIts a tie\n");
     }
     else
     {
-        printf("\nPlayer %d Wins!!!\n", player);
+        if (player == 2 && comp == 1)
+        {
+            printf("\nComputer Wins!");
+        }
+        else
+        {
+            printf("\nPlayer %d Wins!!!\n", player);
+        }
     }
 
     return 0;
@@ -63,14 +77,20 @@ int checkForWin(char board[])
     }
 }
 
-void drawboard(char board[])
+void drawboard(char board[], int comp)
 {
     /*print the board to the console*/
 
     system("clear"); // clears the console every time
     printf("\n\nTic Tac Toe\n\n");
-    printf("Player 1 (X) || Player 2 (O)\n");
-
+    if (comp == 1)
+    {
+        printf("Player 1 (X) || Computer (O)\n");
+    }
+    else
+    {
+        printf("Player 1 (X) || Player 2 (O)\n");
+    }
     printf("\n   |   |   \n");
     printf(" %c | %c | %c \n", board[1], board[2], board[3]);
     printf("___|___|___\n");
@@ -91,24 +111,49 @@ void markBoard(int move, int player, char board[])
     (player == 1) ? (board[move] = 'X') : (board[move] = 'O');
 }
 
-int playerMove(char board[], int player)
+int playerMove(char board[], int player, int comp)
 {
     /*Ask for player move and check if it is valid
     return the move*/
 
     int move;
-    printf("\nPlayer %d, enter a number: ");
-    scanf("%d", &move);
+
+    if (comp == 1)
+    {
+        if (player == 1)
+        {
+            printf("\nPlayer %d, enter a number: ", player);
+            scanf("%d", &move);
+        }
+        else
+        {
+            move = rand() % 10;
+            printf("%d", move);
+            if (move > 9 || move < 1)
+            {
+                move = playerMove(board, player, comp);
+            }
+            else if (board[move] == 'X' || board[move] == 'O')
+            {
+                move = playerMove(board, player, comp);
+            }
+        }
+    }
+    else
+    {
+        printf("\nPlayer %d, enter a number: ", player);
+        scanf("%d", &move);
+    }
 
     if (move > 9 || move < 1)
     {
         printf("Wrong input, try again...\n");
-        move = playerMove(board, player);
+        move = playerMove(board, player, comp);
     }
     else if (board[move] == 'X' || board[move] == 'O')
     {
         printf("Already chosen, try again...\n");
-        move = playerMove(board, player);
+        move = playerMove(board, player, comp);
     }
 
     return move;
