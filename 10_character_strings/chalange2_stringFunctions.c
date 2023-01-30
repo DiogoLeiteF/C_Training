@@ -4,9 +4,13 @@
 void reverse();
 void bsort();
 
+
 int main(int argc, char const *argv[])
 {
     // reverse();
+
+    // challenge 2
+
     bsort();
     return 0;
 }
@@ -36,6 +40,7 @@ void bsort()
     printf("Input the number of strings: ");
     scanf("%d", &numStrings);
     char arr[numStrings][10];
+    char arrTemp[10]; 
 
     printf("input %d strings\n", numStrings);
     for (int i = 0; i < numStrings; i++)
@@ -43,9 +48,31 @@ void bsort()
         scanf("%s", arr[i]);
     }
 
-    // for (int i = 0; i < numStrings; i++)
-    //     printf("%s", arr[i]);
+    // display original array
+    printf("\noriginal\n");
+    for (int i = 0; i < numStrings; i++)
+        printf("%s\n", arr[i]);
 
-    
+    for (int i = 0; i < numStrings - 1; i++)
+    {
+        for (int j = 0; j < numStrings - 1 -i ; j++)
+        {
+            // printf("strcmp %s and %s : %d\n", arr[j], arr[j+1], strcmp(arr[j], arr[j+1]));
+            if (strcmp(arr[j], arr[j + 1]) > 0)
+            {
+                // printf("Enter strcmp\n");
+
+                strncpy(arrTemp, arr[j], sizeof(arrTemp)-1);
+                strncpy(arr[j], arr[j+1], sizeof(arrTemp)-1);
+                strncpy(arr[j+1], arrTemp, sizeof(arrTemp)-1);
+            }
+        }
+    }
+    // display sorted array
+    printf("\nsorted\n");
+    for (int i = 0; i < numStrings; i++)
+        printf("%s\n", arr[i]);
 
 }
+
+
