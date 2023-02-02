@@ -24,7 +24,7 @@ void reverse()
 
     length = strlen(arr);
 
-    // printf("%d\n", length);
+    // printf("%d\n", length); //for test
 
     for (int i = 0; i < length; i++)
     {
@@ -57,10 +57,10 @@ void bsort()
     {
         for (int j = 0; j < numStrings - 1 -i ; j++)
         {
-            // printf("strcmp %s and %s : %d\n", arr[j], arr[j+1], strcmp(arr[j], arr[j+1]));
+            // printf("strcmp %s and %s : %d\n", arr[j], arr[j+1], strcmp(arr[j], arr[j+1])); //for test
             if (strcmp(arr[j], arr[j + 1]) > 0)
             {
-                // printf("Enter strcmp\n");
+                // printf("Enter strcmp\n"); //for test
 
                 strncpy(arrTemp, arr[j], sizeof(arrTemp)-1);
                 strncpy(arr[j], arr[j+1], sizeof(arrTemp)-1);
