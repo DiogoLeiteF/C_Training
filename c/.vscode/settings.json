@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "*.vue": "vue",
+        "string.h": "c"
+    }
+}
